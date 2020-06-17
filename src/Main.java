@@ -7,32 +7,19 @@ public class Main {
 	public static void main(String[] args) {
 
 		// 初期化処理
+		int stairs = 3;
 		// 自キャラ生成
-
-		// floor生成
-
-		// room生成
-
-		// enemy生成
-
 		FightingObject m = new Momotaro();
-		FightingObject o = new Oni("赤鬼");
 
-		int count = 1;
-		while (true) {
-			System.out.println("ターン：" + count);
+		for (int stair = 1; stair <= stairs; stair++) {
 
-			m.attack(o);
-			o.attack(m);
-			if (m.getHp() <= 0 || Field.isEnemyWiped()) {
-				break;
-			}
-			System.out.println("\n");
+			// floor生成
+			// room生成
+			// enemy生成
+			Floor floor = new Floor(stair);
 
-			count++;
-			if (count > 100) {
-				break;
-			}
+			floor.iterate(m);
+
 		}
 
 		scanner.close();

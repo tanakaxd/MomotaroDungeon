@@ -1,18 +1,29 @@
 
 public class Oni extends FightingObject {
 
+	private static int count = 0;
+
 	public Oni(String name) {
 		super();
-		this.setName(name);
-		this.setHp(100);
-		this.mp = 10;
-		setDead(false);
-		this.isEnemy = true;
+		count++;
 
+		this.setName(name + count);
+		this.id = count;
+		this.maxHp = 100;
+		this.hp = maxHp;
+		this.maxMp = 30;
+		this.mp = maxMp;
+		this.agi = 3;
+		this.att = 20;
+		this.def = 2;
+		this.mnd = 1;
+		this.isDead = false;
+		this.isEnemy = true;
+		this.isActive = true;
 	}
 
 	public void attack(FightingObject opponent) {
-		if (isDead())
+		if (isDead() || !isActive)
 			return;
 
 		System.out.println(getName() + "の攻撃");

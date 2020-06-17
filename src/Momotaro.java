@@ -4,14 +4,22 @@ public class Momotaro extends FightingObject {
 	public Momotaro() {
 		super();
 		this.setName("桃太郎");
-		this.setHp(100);
-		this.mp = 10;
+		this.id = 0;
+		this.maxHp = 100;
+		this.hp = maxHp;
+		this.maxMp = 30;
+		this.mp = maxMp;
+		this.agi = 10;
+		this.att = 10;
+		this.def = 5;
+		this.mnd = 5;
 		this.isDead = false;
 		this.isEnemy = false;
+		this.isActive = true;
 	}
 
 	public void attack(FightingObject opponent) {
-		if (isDead)
+		if (isDead || !isActive)
 			return;
 
 		System.out.println(getName() + "の攻撃");
@@ -46,6 +54,8 @@ public class Momotaro extends FightingObject {
 
 		System.out.println(opponent.getName() + "に" + damage + "ダメージ");
 		opponent.setHp(opponent.getHp() - damage);
+
+		isActive = false;
 	}
 
 	public int punch(FightingObject oni) {

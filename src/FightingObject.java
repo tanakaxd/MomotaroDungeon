@@ -1,10 +1,14 @@
 public abstract class FightingObject {
     protected String name;
+    protected int id;
     protected int maxHp;
     protected int hp;
     protected int maxMp;
     protected int mp;
+    protected int att;
+    protected int def;
     protected int agi;
+    protected int mnd;
     protected boolean isDead;
     protected boolean isActive;
     protected boolean isEnemy;
