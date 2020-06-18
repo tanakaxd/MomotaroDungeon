@@ -9,9 +9,9 @@ public class Oni extends FightingObject {
 
 		this.setName(name + count);
 		this.id = count;
-		this.maxHp = 100;
+		this.maxHp = 50;
 		this.hp = maxHp;
-		this.maxMp = 30;
+		this.maxMp = 0;
 		this.mp = maxMp;
 		this.agi = 3;
 		this.att = 20;
@@ -22,43 +22,12 @@ public class Oni extends FightingObject {
 		this.isActive = true;
 	}
 
+	@Override
 	public void attack(FightingObject opponent) {
-		if (isDead() || !isActive)
-			return;
+		super.attack(opponent);
 
-		System.out.println(getName() + "の攻撃");
-		int damage = 15;
-		System.out.println(opponent.getName() + "に" + damage + "ダメージ！");
-		opponent.setHp(opponent.getHp() - damage);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getHp() {
-		return hp;
-	}
-
-	public void setHp(int hp) {
-		this.hp = hp;
-		System.out.println(getName() + "の現在HP：" + getHp());
-		if (hp <= 0) {
-			this.setDead(true);
-			System.out.println(getName() + "は死亡した");
-		}
-	}
-
-	public boolean isDead() {
-		return isDead;
-	}
-
-	public void setDead(boolean isDead) {
-		this.isDead = isDead;
+		int damage = Math.max(1, this.att - opponent.getDef());
+		closeAttack(opponent, damage);
 	}
 
 }

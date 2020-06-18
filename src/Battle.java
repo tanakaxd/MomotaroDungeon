@@ -9,18 +9,29 @@ public class Battle {
     private List<FightingObject> friends = new ArrayList<>();
     private List<FightingObject> enemies = new ArrayList<>();
 
-    public Battle(FightingObject m) {
+    public Battle(FightingObject m, int stairs) {
         friends.add(m);
-        enemies.add(new Oni("赤鬼"));
+        for (int i = 0; i < stairs; i++) {
+            int random = new Random().nextInt(2);
+            switch (random) {
+                case 0:
+                    enemies.add(new Oni("鬼"));
+                    break;
+                case 1:
+                    enemies.add(new Tengu("天狗"));
+                    break;
+            }
+
+        }
         objectsOnField.addAll(friends);
         objectsOnField.addAll(enemies);
-//        System.out.println(objectsOnField);
-//        System.out.println(friends);
-//        System.out.println(enemies);
+        // System.out.println(objectsOnField);
+        // System.out.println(friends);
+        // System.out.println(enemies);
 
     }
 
-    public void interate() {
+    public void iterate() {
 
         int turn = 1;
         while (true) {
@@ -29,7 +40,7 @@ public class Battle {
             // 素早さ順に並び替える
             objectsOnField = objectsOnField.stream().sorted((x, y) -> (y.getAgi() - x.getAgi()))
                     .collect(Collectors.toList());
-            System.out.println("行動順："+objectsOnField);
+            System.out.println("行動順：" + objectsOnField);
 
             // 全員に行動権を与える
             for (FightingObject o : objectsOnField) {

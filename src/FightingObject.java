@@ -13,11 +13,23 @@ public abstract class FightingObject {
     protected boolean isActive;
     protected boolean isEnemy;
 
+    protected Weapon weapon;
+
     public FightingObject() {
-        Field.addFightingObject(this);
+        // Field.addFightingObject(this);
     }
 
-    public abstract void attack(FightingObject opponent);
+    public void attack(FightingObject opponent) {
+        if (isDead || !isActive)
+            return;
+        System.out.println(getName() + "の攻撃");
+        setActive(false);
+    };
+
+    public void closeAttack(FightingObject opponent, int damage) {
+        System.out.println(opponent.getName() + "に" + damage + "ダメージ！");
+        opponent.setHp(opponent.getHp() - damage);
+    }
 
     public int getHp() {
         return hp;
@@ -79,4 +91,59 @@ public abstract class FightingObject {
     public void setEnemy(boolean isEnemy) {
         this.isEnemy = isEnemy;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    public int getMaxMp() {
+        return maxMp;
+    }
+
+    public void setMaxMp(int maxMp) {
+        this.maxMp = maxMp;
+    }
+
+    public int getAtt() {
+        return att;
+    }
+
+    public void setAtt(int att) {
+        this.att = att;
+    }
+
+    public int getDef() {
+        return def;
+    }
+
+    public void setDef(int def) {
+        this.def = def;
+    }
+
+    public int getMnd() {
+        return mnd;
+    }
+
+    public void setMnd(int mnd) {
+        this.mnd = mnd;
+    }
+
+    
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
 }

@@ -1,0 +1,28 @@
+@startuml
+title ????
+Momotaro --> Sude
+Momotaro --> Sword
+Momotaro --> Bomb
+Weapon ..|> ICalcDamangeable
+Weapon *-- "3" Skill : contains
+Weapon *-- "1" UltimateSkill : contains
+Weapon ..|> ISkillSelectable
+Sude --|> Weapon
+Sword --|> Weapon
+Bomb ..|> ICalcDamangeable
+Bomb --|> Consumable
+Consumable --|> Item
+Weapon --|> Item
+UltimateSkill --|> Skill
+UltimateSkill ..|> IUltimateable
+
+abstract Item
+abstract Weapon
+abstract Consumable
+' abstract Skill
+interface ISkillSelectable
+interface ICalcDamangeable
+interface IUltimateable
+
+
+@enduml

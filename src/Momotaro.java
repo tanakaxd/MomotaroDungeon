@@ -1,6 +1,10 @@
 
 public class Momotaro extends FightingObject {
 
+	// private float punchCoefficient = 1.1f;
+	// private float kickCoefficient = 1.2f;
+	// private float rengekiCoefficient = 1.5f;
+
 	public Momotaro() {
 		super();
 		this.setName("桃太郎");
@@ -10,107 +14,48 @@ public class Momotaro extends FightingObject {
 		this.maxMp = 30;
 		this.mp = maxMp;
 		this.agi = 10;
-		this.att = 10;
-		this.def = 5;
-		this.mnd = 5;
+		this.att = 15;
+		this.def = 10;
+		this.mnd = 8;
 		this.isDead = false;
 		this.isEnemy = false;
 		this.isActive = true;
+		this.weapon = new Sude();
+
 	}
 
+	@Override
 	public void attack(FightingObject opponent) {
-		if (isDead || !isActive)
-			return;
+		super.attack(opponent);
 
-		System.out.println(getName() + "の攻撃");
+		System.out.println("スキルを選択してください");
+		int option = weapon.skillSelect();
 
-		int damage;
-		// Scanner scanner = new Scanner(System.in);
-		int option = Main.scanner.nextInt();
+		int damage = weapon.calcDamage(this, opponent, option);
 
-		switch (option) {
-			case 1:
-				damage = punch(opponent);
-				break;
-			case 2:
-				damage = kick(opponent);
-				break;
-			case 3:
-				damage = rengeki(opponent);
-				break;
-			default:
-				damage = 0;
-				break;
-		}
-
-		// int random = (int) (Math.random() * 50);
-		// if (random < 10) {
-		// damage = punch(opponent);
-		// } else if (random < 20) {
-		// damage = kick(opponent);
-		// } else {
-		// damage = rengeki(opponent);
-		// }
-
-		System.out.println(opponent.getName() + "に" + damage + "ダメージ");
+		// 最低1ダメージ
+		damage = Math.max(1, damage - opponent.getDef());
+		System.out.println(opponent.getName() + "に" + damage + "ダメージ!");
 		opponent.setHp(opponent.getHp() - damage);
 
-		isActive = false;
 	}
 
-	public int punch(FightingObject oni) {
-		System.out.println(getName() + "のパンチ！");
-		int damage = 10;
-		return damage;
-	}
+	// public int punch(FightingObject oni) {
+	// System.out.println(getName() + "のパンチ！");
+	// int damage = (int) (att * punchCoefficient);
+	// return damage;
+	// }
 
-	public int kick(FightingObject oni) {
-		System.out.println(getName() + "のキック！");
-		int damage = 15;
-		return damage;
-	}
+	// public int kick(FightingObject oni) {
+	// System.out.println(getName() + "のキック！");
+	// int damage = (int) (att * kickCoefficient);
+	// return damage;
+	// }
 
-	public int rengeki(FightingObject oni) {
-		System.out.println(getName() + "の連撃！");
-		int damage = 30;
-		return damage;
-	}
-
-	public int getHp() {
-		return hp;
-	}
-
-	public void setHp(int hp) {
-		this.hp = hp;
-		System.out.println(getName() + "の現在HP：" + getHp());
-		if (hp <= 0) {
-			this.setDead(true);
-			System.out.println(getName() + "は死亡した");
-		}
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getMp() {
-		return mp;
-	}
-
-	public void setMp(int mp) {
-		this.mp = mp;
-	}
-
-	public boolean isDead() {
-		return isDead;
-	}
-
-	public void setDead(boolean isDead) {
-		this.isDead = isDead;
-	}
+	// public int rengeki(FightingObject oni) {
+	// System.out.println(getName() + "の連撃！");
+	// int damage = (int) (att * rengekiCoefficient);
+	// return damage;
+	// }
 
 }
