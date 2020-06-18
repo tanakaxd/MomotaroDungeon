@@ -1,7 +1,26 @@
-public class UltimateSkill extends Skill {
+import java.util.List;
 
-    public UltimateSkill(String name, int damageCoefficient, int mpConsumption) {
-        super(name, damageCoefficient, mpConsumption);
+public abstract class UltimateSkill extends Skill implements IUltimateable {
+
+    protected int maxCharge;
+    protected int charge;
+
+    public UltimateSkill(String name, boolean isAOE, int times, int damageCoefficient, int mpConsumption,
+            String description) {
+        super(name, isAOE, times, damageCoefficient, mpConsumption, description);
+        // refill();
+    }
+
+    public int getCharge() {
+        System.out.println(charge);
+        return this.charge;
+    }
+
+    public void refill() {
+        System.out.println(charge);
+        this.charge = this.maxCharge;
+        System.out.println(charge);
+
     }
 
 }

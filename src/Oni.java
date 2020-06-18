@@ -1,3 +1,5 @@
+import java.util.List;
+import java.util.Random;
 
 public class Oni extends FightingObject {
 
@@ -23,11 +25,18 @@ public class Oni extends FightingObject {
 	}
 
 	@Override
-	public void attack(FightingObject opponent) {
-		super.attack(opponent);
+	protected void doAttack(List<FightingObject> targets) {
+		FightingObject opponent = targets.get(new Random().nextInt(targets.size()));
+		int damage = (getAtt() - opponent.getDef());
+		displayAttack(opponent, damage);
 
-		int damage = Math.max(1, this.att - opponent.getDef());
-		closeAttack(opponent, damage);
+	}
+
+	protected void displayAttack(FightingObject opponent, int damage) {
+		// 最低1ダメージ
+		damage = Math.max(1, damage);
+		System.out.println(opponent.getName() + "に" + damage + "ダメージ!");
+		opponent.setHp(opponent.getHp() - damage);
 	}
 
 }

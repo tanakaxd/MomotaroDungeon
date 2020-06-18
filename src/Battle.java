@@ -9,7 +9,10 @@ public class Battle {
     private List<FightingObject> friends = new ArrayList<>();
     private List<FightingObject> enemies = new ArrayList<>();
 
-    public Battle(FightingObject m, int stairs) {
+    public Battle(Momotaro m, int stairs) {
+
+        m.initForCombat();
+
         friends.add(m);
         for (int i = 0; i < stairs; i++) {
             int random = new Random().nextInt(2);
@@ -34,6 +37,7 @@ public class Battle {
     public void iterate() {
 
         int turn = 1;
+
         while (true) {
             System.out.println("ターン：" + turn);
 
@@ -51,17 +55,16 @@ public class Battle {
             for (FightingObject o : objectsOnField) {
                 List<FightingObject> targets = new ArrayList<FightingObject>();
                 targets = objectsOnField.stream().filter(x -> {
-                    return x.isEnemy() != o.isEnemy();
+                    return (x.isEnemy() != o.isEnemy()) && !x.isDead();
                 }).collect(Collectors.toList());
                 System.out.println(targets);
-
-                int index = new Random().nextInt(targets.size());
-
-                o.attack(targets.get(index));
+                o.attack(targets);
             }
 
-            if (isWiped(enemies) || isWiped(friends)) {
+            if (isWiped(enemies)) {
                 break;
+            } else if (isWiped(friends)) {
+                System.exit(0);
             }
             System.out.println("\n");
 

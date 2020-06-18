@@ -15,7 +15,7 @@ public class Floor {
         }
     }
 
-    public void iterate(FightingObject m) {
+    public void iterate(Momotaro m) {
         for (Room room : rooms) {
             room.event(m, stairs);
         }

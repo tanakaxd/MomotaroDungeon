@@ -9,7 +9,7 @@ public class Main {
 		// 初期化処理
 		int stairs = 3;
 		// 自キャラ生成
-		FightingObject m = new Momotaro();
+		Momotaro m = new Momotaro();
 
 		for (int stair = 1; stair <= stairs; stair++) {
 

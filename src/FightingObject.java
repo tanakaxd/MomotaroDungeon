@@ -1,3 +1,5 @@
+import java.util.List;
+
 public abstract class FightingObject {
     protected String name;
     protected int id;
@@ -13,23 +15,29 @@ public abstract class FightingObject {
     protected boolean isActive;
     protected boolean isEnemy;
 
+    // 状態異常系
+    // バフ系
+    // レベル
+
+    // 装備
     protected Weapon weapon;
 
     public FightingObject() {
         // Field.addFightingObject(this);
     }
 
-    public void attack(FightingObject opponent) {
+    // template pattern
+    public final void attack(List<FightingObject> targets) {
         if (isDead || !isActive)
             return;
-        System.out.println(getName() + "の攻撃");
+        System.out.println("-----" + getName() + "の番" + "-----");
+
+        doAttack(targets);
+
         setActive(false);
     };
 
-    public void closeAttack(FightingObject opponent, int damage) {
-        System.out.println(opponent.getName() + "に" + damage + "ダメージ！");
-        opponent.setHp(opponent.getHp() - damage);
-    }
+    protected abstract void doAttack(List<FightingObject> targets);
 
     public int getHp() {
         return hp;
@@ -39,8 +47,9 @@ public abstract class FightingObject {
         this.hp = hp;
         System.out.println(getName() + "の現在HP：" + getHp());
         if (hp <= 0) {
+            hp = 0;
             this.setDead(true);
-            System.out.println(getName() + "は死亡した");
+            System.out.println(getName() + "は倒れた");
         }
     }
 
@@ -50,6 +59,19 @@ public abstract class FightingObject {
 
     public void setMp(int mp) {
         this.mp = mp;
+    }
+
+    public boolean consumeMp(int consumption) {
+        boolean isUsable = this.mp >= consumption;
+        if (isUsable) {
+            this.mp -= consumption;
+            System.out.println("残りMP: " + this.mp);
+
+        } else {
+            System.out.println("mpが足りない");
+        }
+        return isUsable;
+
     }
 
     public int getAgi() {
@@ -139,8 +161,6 @@ public abstract class FightingObject {
     public void setMnd(int mnd) {
         this.mnd = mnd;
     }
-
-    
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;

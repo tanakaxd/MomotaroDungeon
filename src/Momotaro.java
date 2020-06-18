@@ -1,3 +1,5 @@
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Momotaro extends FightingObject {
 
@@ -20,24 +22,31 @@ public class Momotaro extends FightingObject {
 		this.isDead = false;
 		this.isEnemy = false;
 		this.isActive = true;
-		this.weapon = new Sude();
+		this.weapon = new Sword();
 
 	}
 
 	@Override
-	public void attack(FightingObject opponent) {
-		super.attack(opponent);
+	public void doAttack(List<FightingObject> targets) {
 
 		System.out.println("スキルを選択してください");
-		int option = weapon.skillSelect();
 
-		int damage = weapon.calcDamage(this, opponent, option);
+		weapon.calcDamage(this, targets);
 
-		// 最低1ダメージ
-		damage = Math.max(1, damage - opponent.getDef());
-		System.out.println(opponent.getName() + "に" + damage + "ダメージ!");
-		opponent.setHp(opponent.getHp() - damage);
+	}
 
+	public void initForCombat() {
+
+		// ultimateの回復
+		List<Skill> s = weapon.skills.stream().filter(x -> x instanceof UltimateSkill).collect(Collectors.toList());
+		for (Skill skill : s) {
+			((UltimateSkill) skill).refill();
+		}
+	}
+
+	public void terminateForCombat() {
+		// 戦闘が終わった時の処理
+		// バフの状態を元に戻す等
 	}
 
 	// public int punch(FightingObject oni) {
