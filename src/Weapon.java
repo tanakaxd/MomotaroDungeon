@@ -19,11 +19,11 @@ public abstract class Weapon implements ICalcDamageable, ISkillSelectable {
         System.out.println(attacker.getName() + "の" + s.getName());
 
         // 必殺技の場合
-        if (s instanceof IUltimateable) {
+        if (s instanceof UltimateSkill) {
 
-            boolean isSuccess = ((IUltimateable) s).ultimate(attacker, targets, this);
+            boolean isSuccess = ((UltimateSkill) s).ultimate(attacker, targets, this);
 
-            // 使えなかった場合何もできない。while loopに入れる手もあるが調整が必要
+            // 使えなかった場合何もできない。上のwhile loopに入れる手もあるが調整が必要
             return;
 
         }

@@ -1,6 +1,6 @@
 import java.util.List;
 
-public abstract class UltimateSkill extends Skill implements IUltimateable {
+public abstract class UltimateSkill extends Skill {
 
     protected int maxCharge;
     protected int charge;
@@ -10,6 +10,22 @@ public abstract class UltimateSkill extends Skill implements IUltimateable {
         super(name, isAOE, times, damageCoefficient, mpConsumption, description);
         // refill();
     }
+
+    public final boolean ultimate(FightingObject attacker, List<FightingObject> targets, Weapon weapon) {
+        if (this.charge <= 0) {
+            System.out.println("failed: charge <= 0");
+            return false;
+        }
+
+        // template pattern
+        boolean isSuccess = doUltimate(attacker, targets, weapon);
+
+        this.charge--;
+        return isSuccess;
+
+    };
+
+    protected abstract boolean doUltimate(FightingObject attacker, List<FightingObject> targets, Weapon weapon);
 
     public int getCharge() {
         System.out.println(charge);

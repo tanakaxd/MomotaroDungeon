@@ -1,5 +1,6 @@
 @startuml
-title ????
+title Momotaro
+
 Momotaro --> Sude
 Momotaro --> Sword
 Momotaro --> Bomb
@@ -14,7 +15,7 @@ Bomb --|> Consumable
 Consumable --|> Item
 Weapon --|> Item
 UltimateSkill --|> Skill
-UltimateSkill ..|> IUltimateable
+' UltimateSkill .|> IUltimateable
 
 abstract Item
 abstract Weapon
@@ -22,7 +23,9 @@ abstract Consumable
 ' abstract Skill
 interface ISkillSelectable
 interface ICalcDamangeable
-interface IUltimateable
+' interface IUltimateable
 
 
 @enduml
+
+docker run -d -p 8080:8080 plantuml/plantuml-server:tomcat
