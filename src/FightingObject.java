@@ -20,15 +20,16 @@ public abstract class FightingObject {
     // レベル
 
     // 装備
-    protected Weapon weapon;
 
     public FightingObject() {
         // Field.addFightingObject(this);
+        this.isDead = false;
+        this.isActive = true;
     }
 
     // template pattern
     public final void attack(List<FightingObject> targets) {
-        if (isDead || !isActive)
+        if (isDead || !isActive || targets.size() == 0)
             return;
         System.out.println("-----" + getName() + "の番" + "-----");
 
@@ -39,18 +40,34 @@ public abstract class FightingObject {
 
     protected abstract void doAttack(List<FightingObject> targets);
 
+    @Override
+    public String toString() {
+        return name + " HP:" + this.hp + "/" + this.maxHp + " MP:" + this.mp + "/" + this.maxMp;
+    }
+
     public int getHp() {
         return hp;
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
-        System.out.println(getName() + "の現在HP：" + getHp());
-        if (hp <= 0) {
-            hp = 0;
+        if (hp > this.maxHp) {
+            this.hp = this.maxHp;
+        } else if (hp > 0) {
+            this.hp = hp;
+        } else if (hp <= 0) {
+            this.hp = 0;
+            if (!this.isDead)
+                System.out.println(getName() + "は倒れた");
             this.setDead(true);
-            System.out.println(getName() + "は倒れた");
         }
+
+        System.out.println(getName() + "の現在HP：" + getHp());
+
+    }
+
+    public void healHp(int amounts) {
+        setHp(getHp() + amounts);
+        System.out.println(getName() + "は" + amounts + "HPを回復した");
     }
 
     public int getMp() {
@@ -58,7 +75,15 @@ public abstract class FightingObject {
     }
 
     public void setMp(int mp) {
-        this.mp = mp;
+        if (mp > this.maxMp) {
+            this.mp = this.maxMp;
+        } else if (mp > 0) {
+            this.mp = mp;
+        } else if (mp <= 0) {
+            this.mp = 0;
+        }
+
+        System.out.println(getName() + "の現在mp：" + getMp());
     }
 
     public boolean consumeMp(int consumption) {
@@ -72,6 +97,11 @@ public abstract class FightingObject {
         }
         return isUsable;
 
+    }
+
+    public void healMp(int amounts) {
+        setMp(getMp() + amounts);
+        System.out.println(getName() + "は" + amounts + "MPを回復した");
     }
 
     public int getAgi() {
@@ -160,10 +190,6 @@ public abstract class FightingObject {
 
     public void setMnd(int mnd) {
         this.mnd = mnd;
-    }
-
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
     }
 
 }

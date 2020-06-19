@@ -5,6 +5,7 @@ import java.util.Random;
 public abstract class Weapon implements ICalcDamageable, ISkillSelectable {
     protected int att;
     protected List<Skill> skills = new ArrayList<>();
+    protected double rarityRate;
 
     @Override
     public void calcDamage(FightingObject attacker, List<FightingObject> targets) {
@@ -59,15 +60,44 @@ public abstract class Weapon implements ICalcDamageable, ISkillSelectable {
 
     @Override
     public int skillSelect() {
-        for (Skill skill : skills) {
+
+        for (int i = 0; i < skills.size(); i++) {
+            Skill skill = skills.get(i);
+
             if (skill instanceof UltimateSkill) {
                 if (((UltimateSkill) skill).getCharge() == 0)
                     continue;
             }
-            System.out.println(skill);
+            int num = i + 1;
+            System.out.println(" " + num + " --> " + skill);
         }
-        int option = Main.scanner.nextInt() - 1;
+
+        int option = Main.scanNextInt(skills.size());
         return option;
+    }
+
+    public int getAtt() {
+        return att;
+    }
+
+    public void setAtt(int att) {
+        this.att = att;
+    }
+
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
+    }
+
+    public double getRarityRate() {
+        return rarityRate;
+    }
+
+    public void setRarityRate(double rarityRate) {
+        this.rarityRate = rarityRate;
     }
 
 }

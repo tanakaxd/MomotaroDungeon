@@ -1,28 +1,48 @@
 @startuml
 title Momotaro
 
-Momotaro --> Sude
-Momotaro --> Sword
-Momotaro --> Bomb
+Hero --|> FightingObject
+Momotaro --|> Hero
+Kintaro --|> Hero
+Kintaro ..|> ICastMagicable
+Monster --|> FightingObject
+Monster *-- "n" Skill : contains
+Oni --|> Monster
+Tengu --|> Monster
+Tengu ..|> ICastMagicable
+
+Hero --> Sude
+Hero --> Sword
+Hero --> Hammer
+Hero --> Bomb
+
 Weapon ..|> ICalcDamangeable
 Weapon *-- "3" Skill : contains
 Weapon *-- "1" UltimateSkill : contains
 Weapon ..|> ISkillSelectable
 Sude --|> Weapon
 Sword --|> Weapon
+Hammer --|> Weapon
 Bomb ..|> ICalcDamangeable
 Bomb --|> Consumable
 Consumable --|> Item
 Weapon --|> Item
 UltimateSkill --|> Skill
 ' UltimateSkill .|> IUltimateable
+WeaponManager o-- "1" Sword
+WeaponManager o-- "1" Hammer
+WeaponManager o-- "1" Sude
 
+abstract FightingObject
+abstract Hero
+abstract Monster
 abstract Item
 abstract Weapon
 abstract Consumable
 ' abstract Skill
 interface ISkillSelectable
 interface ICalcDamangeable
+interface ICastMagicable
 ' interface IUltimateable
 
 

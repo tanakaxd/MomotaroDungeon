@@ -27,7 +27,7 @@ public class Skill {
 
     @Override
     public String toString() {
-        return name + " 対象:" + isAOEString() + " 威力:" + damageCoefficient + "×" + times + " 消費MP" + mpConsumption
+        return name + " 対象:" + isAOEString() + " 威力:" + damageCoefficient + " × " + times + " 消費MP" + mpConsumption
                 + " 備考:" + description;
     }
 

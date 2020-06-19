@@ -2,10 +2,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Momotaro extends FightingObject {
-
-	// private float punchCoefficient = 1.1f;
-	// private float kickCoefficient = 1.2f;
-	// private float rengekiCoefficient = 1.5f;
+	protected Weapon weapon;
 
 	public Momotaro() {
 		super();
@@ -19,17 +16,15 @@ public class Momotaro extends FightingObject {
 		this.att = 15;
 		this.def = 10;
 		this.mnd = 8;
-		this.isDead = false;
 		this.isEnemy = false;
-		this.isActive = true;
-		this.weapon = new Sword();
+		this.weapon = new Sude();
 
 	}
 
 	@Override
 	public void doAttack(List<FightingObject> targets) {
 
-		System.out.println("スキルを選択してください");
+		System.out.println("\nスキルを選択してください\n");
 
 		weapon.calcDamage(this, targets);
 
@@ -49,22 +44,16 @@ public class Momotaro extends FightingObject {
 		// バフの状態を元に戻す等
 	}
 
-	// public int punch(FightingObject oni) {
-	// System.out.println(getName() + "のパンチ！");
-	// int damage = (int) (att * punchCoefficient);
-	// return damage;
-	// }
+	public void rest() {
+		healHp(20);
+		healMp(5);
+	}
 
-	// public int kick(FightingObject oni) {
-	// System.out.println(getName() + "のキック！");
-	// int damage = (int) (att * kickCoefficient);
-	// return damage;
-	// }
+	public Weapon getWeapon() {
+		return weapon;
+	}
 
-	// public int rengeki(FightingObject oni) {
-	// System.out.println(getName() + "の連撃！");
-	// int damage = (int) (att * rengekiCoefficient);
-	// return damage;
-	// }
-
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
 }

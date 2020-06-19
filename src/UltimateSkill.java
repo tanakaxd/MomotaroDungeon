@@ -6,9 +6,10 @@ public abstract class UltimateSkill extends Skill {
     protected int charge;
 
     public UltimateSkill(String name, boolean isAOE, int times, int damageCoefficient, int mpConsumption,
-            String description) {
+            String description, int maxCharge) {
         super(name, isAOE, times, damageCoefficient, mpConsumption, description);
-        // refill();
+        this.maxCharge = maxCharge;
+        this.charge = this.maxCharge;
     }
 
     public final boolean ultimate(FightingObject attacker, List<FightingObject> targets, Weapon weapon) {
@@ -20,7 +21,9 @@ public abstract class UltimateSkill extends Skill {
         // template pattern
         boolean isSuccess = doUltimate(attacker, targets, weapon);
 
-        this.charge--;
+        if (isSuccess)
+            this.charge--;
+
         return isSuccess;
 
     };
@@ -28,14 +31,14 @@ public abstract class UltimateSkill extends Skill {
     protected abstract boolean doUltimate(FightingObject attacker, List<FightingObject> targets, Weapon weapon);
 
     public int getCharge() {
-        System.out.println(charge);
+        // System.out.println(charge);
         return this.charge;
     }
 
     public void refill() {
-        System.out.println(charge);
+        // System.out.println(charge);
         this.charge = this.maxCharge;
-        System.out.println(charge);
+        // System.out.println(charge);
 
     }
 

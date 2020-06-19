@@ -15,22 +15,22 @@ public class Battle {
 
         friends.add(m);
         for (int i = 0; i < stairs; i++) {
-            int random = new Random().nextInt(2);
+            int random = new Random().nextInt(3);
             switch (random) {
                 case 0:
-                    enemies.add(new Oni("鬼"));
+                    enemies.add(new Oni());
                     break;
                 case 1:
-                    enemies.add(new Tengu("天狗"));
+                    enemies.add(new Tengu());
+                    break;
+                case 2:
+                    enemies.add(new Ochimusha());
                     break;
             }
 
         }
         objectsOnField.addAll(friends);
         objectsOnField.addAll(enemies);
-        // System.out.println(objectsOnField);
-        // System.out.println(friends);
-        // System.out.println(enemies);
 
     }
 
@@ -39,11 +39,11 @@ public class Battle {
         int turn = 1;
 
         while (true) {
-            System.out.println("ターン：" + turn);
+            System.out.println("ターン：" + turn + "\n");
 
             // 素早さ順に並び替える
             objectsOnField = objectsOnField.stream().sorted((x, y) -> (y.getAgi() - x.getAgi()))
-                    .collect(Collectors.toList());
+                    .filter(x -> !x.isDead()).collect(Collectors.toList());
             System.out.println("行動順：" + objectsOnField);
 
             // 全員に行動権を与える
@@ -64,12 +64,14 @@ public class Battle {
             if (isWiped(enemies)) {
                 break;
             } else if (isWiped(friends)) {
-                System.exit(0);
+                // System.exit(0);
+                throw new MomotaroDeadException("パーティが全滅。ゲームオーバーです");
             }
+
             System.out.println("\n");
 
             turn++;
-            if (turn > 7) {
+            if (turn > 20) {
                 break;
             }
         }
