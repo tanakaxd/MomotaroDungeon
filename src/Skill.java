@@ -7,6 +7,7 @@ public class Skill {
 
     private String name;
     private boolean isAOE;
+    private boolean isUsable;
     private int damageCoefficient;
     private int times;
     private int mpConsumption;
@@ -15,6 +16,7 @@ public class Skill {
     public Skill(String name, boolean isAOE, int times, int damageCoefficient, int mpConsumption, String description) {
         this.name = name;
         this.isAOE = isAOE;
+        this.isUsable = true;
         this.damageCoefficient = damageCoefficient;
         this.times = times;
         this.mpConsumption = mpConsumption;

@@ -7,17 +7,18 @@ public class Floor {
     private int stairs;
 
     public Floor(int num) {
-        System.out.println("\n-------\n");
-        System.out.println(num + "階へ突入");
+        Main.delayedPrint("\n-------\n");
+        Main.delayedPrint(num + "階へ突入");
         stairs = num;
         for (int i = 0; i < num; i++) {
             rooms.add(new Room());
         }
+        rooms.add(new Room(RoomType.UPSTAIR));
     }
 
-    public void iterate(Momotaro m) {
+    public void iterate(Party p) {
         for (Room room : rooms) {
-            room.event(m, stairs);
+            room.event(p, stairs);
         }
     }
 }

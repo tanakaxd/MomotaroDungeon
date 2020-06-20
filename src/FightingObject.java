@@ -16,10 +16,16 @@ public abstract class FightingObject {
     protected boolean isEnemy;
 
     // 状態異常系
+    protected boolean isParalized;
+    protected boolean isSleeping;
+    protected boolean isPoisoned;
     // バフ系
+    protected double attModifier;
+    protected double defModifier;
+    protected double agiModifier;
+    protected double mndModifier;
     // レベル
-
-    // 装備
+    protected int level;
 
     public FightingObject() {
         // Field.addFightingObject(this);
@@ -29,13 +35,18 @@ public abstract class FightingObject {
 
     // template pattern
     public final void attack(List<FightingObject> targets) {
+        // 攻撃前、誰もが行う処理
         if (isDead || !isActive || targets.size() == 0)
             return;
-        System.out.println("-----" + getName() + "の番" + "-----");
+        Main.delayedPrint("\n-----" + getName() + "の番" + "-----");
+        // beginTurn();
 
+        // クラスごとに独自の攻撃メソッド
         doAttack(targets);
 
+        // 攻撃後、誰もが行う処理
         setActive(false);
+        // endTurn();
     };
 
     protected abstract void doAttack(List<FightingObject> targets);

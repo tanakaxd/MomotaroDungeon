@@ -1,41 +1,60 @@
 import java.util.Random;
 
+enum RoomType {
+    NOTHING, COMBAT, TREASURE, UPSTAIR, BOSS
+}
+
 public class Room {
 
-    private int roomType;
+    private RoomType roomType;
     private double assaultRate;
     private int stairs;
 
     public Room() {
-        this.roomType = new Random().nextInt(3);
-        assaultRate = 0.1;
+        this.roomType = getRandomRoomType();
+        this.assaultRate = 0.1;
     }
 
-    public void event(Momotaro m, int stairs) {
+    public Room(RoomType roomType) {
+        this.roomType = roomType;
+        this.assaultRate = 0.1;
+    }
+
+    public void event(Party p, int stairs) {
+        System.out.println("\n次の部屋へ進みますか？");
+        Main.displayChoices("はい");
+        Main.scanNextInt(1);
         this.stairs = stairs;
         switch (roomType) {
-            case 0:
-                initiateRest(m);
+            case NOTHING:
+                initiateRest(p);
                 break;
-            case 1:
-                initiateEquip(m);
+            case TREASURE:
+                initiateEquip(p.getMainHero());
                 break;
-            case 2:
-                initiateCombat(m, stairs);
+            case COMBAT:
+                initiateCombat(p, stairs);
+                break;
+            case UPSTAIR:
+                initiateUpstar();
                 break;
             default:
                 break;
         }
     }
 
-    public void initiateCombat(Momotaro m, int stairs) {
-        System.out.println("\n敵が現れた");
-        Battle b = new Battle(m, stairs);
+    private void initiateUpstar() {
+        Main.delayedPrint("階段がある。次の階へ進みます");
+    }
+
+    public void initiateCombat(Party p, int stairs) {
+        Main.delayedPrint("\n!!!! 敵が現れた !!!!");
+        Battle b = new Battle(p, stairs);
         b.iterate();
     }
 
-    private void initiateRest(Momotaro m) {
-        System.out.println("\n何もない部屋だ");
+    private void initiateRest(Party p) {
+        Main.delayedPrint("\n何もない部屋だ");
 
         while (true) {
             System.out.println("休憩する？");
@@ -44,10 +63,10 @@ public class Room {
             switch (option) {
                 case 0:
 
-                    m.rest();
+                    p.rest();
                     System.out.println(assaultRate);
                     if (Math.random() < assaultRate) {
-                        initiateCombat(m, this.stairs);
+                        initiateCombat(p, this.stairs);
                     }
                     assaultRate *= 2;
                     break;
@@ -57,8 +76,8 @@ public class Room {
         }
     }
 
-    private void initiateEquip(Momotaro m) {
-        System.out.println("\nアイテム発見！");
+    private void initiateEquip(Hero m) {
+        Main.delayedPrint("\nアイテム発見！");
         Weapon weapon = WeaponManager.getWeapon();
         System.out.println(weapon);
         System.out.println("装備する？");
@@ -70,6 +89,22 @@ public class Room {
                 break;
             case 1:
                 return;
+        }
+    }
+
+    private RoomType getRandomRoomType() {
+        int random = new Random().nextInt(3);
+        switch (random) {
+            case 0:
+                return RoomType.COMBAT;
+            case 1:
+                return RoomType.TREASURE;
+            case 2:
+                return RoomType.NOTHING;
+            default:
+                System.out.println("invalid arguments");
+                return null;
+
         }
     }
 

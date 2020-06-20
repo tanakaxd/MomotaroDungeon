@@ -1,5 +1,8 @@
 @startuml
-title Momotaro
+title MomotaroDungeon
+
+Momotaro --* "1" Party
+Kintaro --o "n" Party
 
 Hero --|> FightingObject
 Momotaro --|> Hero
@@ -8,6 +11,7 @@ Kintaro ..|> ICastMagicable
 Monster --|> FightingObject
 Monster *-- "n" Skill : contains
 Oni --|> Monster
+Ochimusha --|> Monster
 Tengu --|> Monster
 Tengu ..|> ICastMagicable
 

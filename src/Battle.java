@@ -9,12 +9,14 @@ public class Battle {
     private List<FightingObject> friends = new ArrayList<>();
     private List<FightingObject> enemies = new ArrayList<>();
 
-    public Battle(Momotaro m, int stairs) {
+    public Battle(Party p, int stairs) {
 
-        m.initForCombat();
+        p.initForCombat();
 
-        friends.add(m);
-        for (int i = 0; i < stairs; i++) {
+        for (Hero hero : p.getHeroes()) {
+            friends.add(hero);
+        }
+        for (int i = 0; i < BattleDatabase.getEnemyAmountsForStairs(stairs); i++) {
             int random = new Random().nextInt(3);
             switch (random) {
                 case 0:
@@ -57,7 +59,7 @@ public class Battle {
                 targets = objectsOnField.stream().filter(x -> {
                     return (x.isEnemy() != o.isEnemy()) && !x.isDead();
                 }).collect(Collectors.toList());
-                System.out.println(targets);
+                // System.out.println(targets);
                 o.attack(targets);
             }
 
@@ -70,10 +72,10 @@ public class Battle {
 
             System.out.println("\n");
 
-            turn++;
-            if (turn > 20) {
+            if (turn > 30) {
                 break;
             }
+            turn++;
         }
     }
 
