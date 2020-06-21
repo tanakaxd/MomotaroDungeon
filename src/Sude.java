@@ -4,6 +4,7 @@ import java.util.Random;
 public class Sude extends Weapon {
 
     public Sude() {
+        this.name = "素手";
         this.att = 0;
         this.rarityRate = 0.5;
 

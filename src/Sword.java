@@ -4,6 +4,7 @@ import java.util.Random;
 public class Sword extends Weapon {
 
     public Sword() {
+        this.name = "刀";
         this.att = 8;
         this.rarityRate = 0.3;
         this.skills.add(new Skill("虎狩", false, 1, 100, 0, "通常攻撃"));

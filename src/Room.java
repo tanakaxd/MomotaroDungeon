@@ -22,8 +22,8 @@ public class Room {
 
     public void event(Party p, int stairs) {
         System.out.println("\n次の部屋へ進みますか？");
-        Main.displayChoices("はい");
-        Main.scanNextInt(1);
+        Display.displayChoices("はい");
+        Display.scanNextInt(1);
         this.stairs = stairs;
         switch (roomType) {
             case NOTHING:
@@ -44,22 +44,38 @@ public class Room {
     }
 
     private void initiateUpstar() {
-        Main.delayedPrint("階段がある。次の階へ進みます");
+        Display.delayedPrint("階段がある。次の階へ進みます");
     }
 
     public void initiateCombat(Party p, int stairs) {
-        Main.delayedPrint("\n!!!! 敵が現れた !!!!");
+        Display.delayedPrint("\n!!!! 敵が現れた !!!!");
         Battle b = new Battle(p, stairs);
-        b.iterate();
+        try {
+            b.iterate();
+
+        } catch (Exception e) {
+            // 例外を一回中継する。キャッチして記録を表示した後、もう一度例外を発生させてMainまで伝播させる
+            System.out.println("あなたの最終到達階層: " + this.stairs);
+            e.printStackTrace();
+            throw new MomotaroDeadException(null);
+        } finally {
+            System.out.println("Room finally block excuted!");
+            Display.scanner.close();
+        }
     }
 
     private void initiateRest(Party p) {
-        Main.delayedPrint("\n何もない部屋だ");
+        Display.delayedPrint("\n何もない部屋だ");
+
+        int count = 1;
 
         while (true) {
+            if (count >= 2) {
+                System.out.println("同じ部屋にとどまり続けると敵をおびき寄せるかもしれない…");
+            }
             System.out.println("休憩する？");
-            Main.displayChoices("はい", "いいえ");
-            int option = Main.scanNextInt(2);
+            Display.displayChoices("はい", "いいえ");
+            int option = Display.scanNextInt(2);
             switch (option) {
                 case 0:
 
@@ -69,6 +85,7 @@ public class Room {
                         initiateCombat(p, this.stairs);
                     }
                     assaultRate *= 2;
+                    count++;
                     break;
                 case 1:
                     return;
@@ -77,12 +94,12 @@ public class Room {
     }
 
     private void initiateEquip(Hero m) {
-        Main.delayedPrint("\nアイテム発見！");
+        Display.delayedPrint("\nアイテム発見！");
         Weapon weapon = WeaponManager.getWeapon();
-        System.out.println(weapon);
+        Display.delayedPrint(weapon.toDetailString());
         System.out.println("装備する？");
-        Main.displayChoices("はい", "いいえ");
-        int option = Main.scanNextInt(2);
+        Display.displayChoices("はい", "いいえ");
+        int option = Display.scanNextInt(2);
         switch (option) {
             case 0:
                 m.setWeapon(weapon);

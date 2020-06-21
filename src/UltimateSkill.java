@@ -21,8 +21,10 @@ public abstract class UltimateSkill extends Skill {
         // template pattern
         boolean isSuccess = doUltimate(attacker, targets, weapon);
 
-        if (isSuccess)
+        if (isSuccess) {
             this.charge--;
+            attacker.consumeMp(getMpConsumption());
+        }
 
         return isSuccess;
 

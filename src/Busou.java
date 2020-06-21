@@ -14,8 +14,8 @@ public class Busou extends UltimateSkill {
         FightingObject opponent = targets.get(new Random().nextInt(targets.size()));
         int damage = (int) ((attacker.getAtt() + weapon.att) * ((double) getDamageCoefficient() / 100));
         damage = Math.max(1, damage);
-        System.out.println(opponent.getName() + "に" + damage + "ダメージ!");
-        opponent.setHp(opponent.getHp() - damage);
+        // System.out.println(opponent.getName() + "に" + damage + "ダメージ!");
+        opponent.getDamage(damage);
         return true;
     }
 }

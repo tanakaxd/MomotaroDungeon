@@ -36,7 +36,7 @@ public class Battle {
 
     }
 
-    public void iterate() {
+    public void iterate() throws MomotaroDeadException {
 
         int turn = 1;
 
@@ -55,12 +55,22 @@ public class Battle {
 
             // 順に攻撃
             for (FightingObject o : objectsOnField) {
-                List<FightingObject> targets = new ArrayList<FightingObject>();
-                targets = objectsOnField.stream().filter(x -> {
+                // 死んでいない敵リスト
+                List<FightingObject> o_enemies = new ArrayList<FightingObject>();
+                o_enemies = objectsOnField.stream().filter(x -> {
                     return (x.isEnemy() != o.isEnemy()) && !x.isDead();
                 }).collect(Collectors.toList());
-                // System.out.println(targets);
-                o.attack(targets);
+
+                // 死人を含めた仲間リスト
+                List<FightingObject> o_friends = new ArrayList<FightingObject>();
+                o_friends = objectsOnField.stream().filter(x -> {
+                    return (x.isEnemy() == o.isEnemy());
+                }).collect(Collectors.toList());
+
+                System.out.println(o_enemies);
+                System.out.println(o_friends);
+
+                o.attemptAct(o_enemies, o_friends);// todo 味方リストも受け取る必要があるかも
             }
 
             if (isWiped(enemies)) {

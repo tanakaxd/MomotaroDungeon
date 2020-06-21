@@ -15,8 +15,8 @@ public class HammerUltimateSkill extends UltimateSkill {
         int damage = (int) ((attacker.getAtt() + weapon.att + opponent.getDef())
                 * ((double) getDamageCoefficient() / 100));
         damage = Math.max(1, damage);
-        System.out.println(opponent.getName() + "に" + damage + "ダメージ!");
-        opponent.setHp(opponent.getHp() - damage);
+        // System.out.println(opponent.getName() + "に" + damage + "ダメージ!");
+        opponent.getDamage(damage);
         return true;
     }
 

@@ -7,8 +7,8 @@ public class Floor {
     private int stairs;
 
     public Floor(int num) {
-        Main.delayedPrint("\n-------\n");
-        Main.delayedPrint(num + "階へ突入");
+        Display.delayedPrint("\n-------\n");
+        Display.delayedPrint(num + "階へ突入");
         stairs = num;
         for (int i = 0; i < num; i++) {
             rooms.add(new Room());

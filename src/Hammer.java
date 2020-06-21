@@ -1,7 +1,8 @@
 public class Hammer extends Weapon {
     public Hammer() {
+        this.name = "大槌";
         this.att = 15;
-        this.rarityRate = 0.2;
+        this.rarityRate = 0.1;
 
         this.skills.add(new Skill("微スウィング", false, 1, 120, 0, "通常攻撃"));
         this.skills.add(new Skill("スウィング", false, 1, 210, 5, "単体中威力攻撃"));

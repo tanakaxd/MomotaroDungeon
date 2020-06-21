@@ -11,14 +11,21 @@ public abstract class FightingObject {
     protected int def;
     protected int agi;
     protected int mnd;
+    protected int hitTimes;
+
     protected boolean isDead;
     protected boolean isActive;
     protected boolean isEnemy;
 
-    // 状態異常系
+    // 状態異常系 todo status class
     protected boolean isParalized;
+    protected int paralysisCount;
     protected boolean isSleeping;
+    protected int sleepCount;
     protected boolean isPoisoned;
+    protected int poisonCount;
+    protected boolean isStunned;
+    protected int stunCount;
     // バフ系
     protected double attModifier;
     protected double defModifier;
@@ -27,29 +34,55 @@ public abstract class FightingObject {
     // レベル
     protected int level;
 
+    // action
+    protected Action action;
+
     public FightingObject() {
         // Field.addFightingObject(this);
         this.isDead = false;
         this.isActive = true;
+        this.isParalized = false;
+        this.isSleeping = false;
+        this.isPoisoned = false;
+        this.attModifier = 1;
+        this.defModifier = 1;
+        this.agiModifier = 1;
+        this.mndModifier = 1;
     }
 
-    // template pattern
-    public final void attack(List<FightingObject> targets) {
-        // 攻撃前、誰もが行う処理
-        if (isDead || !isActive || targets.size() == 0)
+    public class Timer {
+        private int count;
+
+        Timer(int count) {
+            this.count = count;
+        }
+
+    }
+
+    public final void attemptAct(List<FightingObject> enemies, List<FightingObject> friends) {
+        // 行動前、誰もが行う処理
+        if (isDead || !isActive || isParalized() || isSleeping())
             return;
-        Main.delayedPrint("\n-----" + getName() + "の番" + "-----");
-        // beginTurn();
+        // if (isImmobilized()) {
+        // System.out.println("行動不能");
+        // return;
+        // }
+        Display.delayedPrint("\n-----" + getName() + "の番" + "-----");
+        beginTurn();
 
-        // クラスごとに独自の攻撃メソッド
-        doAttack(targets);
+        // クラスごとに独自の行動メソッド
+        this.action.attemptAct(this, enemies, friends);
 
-        // 攻撃後、誰もが行う処理
+        // 行動後、誰もが行う処理
         setActive(false);
-        // endTurn();
+        endTurn();
     };
 
-    protected abstract void doAttack(List<FightingObject> targets);
+    private void endTurn() {
+    }
+
+    private void beginTurn() {
+    }
 
     @Override
     public String toString() {
@@ -60,7 +93,7 @@ public abstract class FightingObject {
         return hp;
     }
 
-    public void setHp(int hp) {
+    private void setHp(int hp) {
         if (hp > this.maxHp) {
             this.hp = this.maxHp;
         } else if (hp > 0) {
@@ -76,9 +109,14 @@ public abstract class FightingObject {
 
     }
 
+    public void getDamage(int damage) {
+        Display.delayedPrint(200, 200, getName() + "に" + damage + "ダメージ");
+        setHp(getHp() - damage);
+    }
+
     public void healHp(int amounts) {
-        setHp(getHp() + amounts);
         System.out.println(getName() + "は" + amounts + "HPを回復した");
+        setHp(getHp() + amounts);
     }
 
     public int getMp() {
@@ -97,22 +135,14 @@ public abstract class FightingObject {
         System.out.println(getName() + "の現在mp：" + getMp());
     }
 
-    public boolean consumeMp(int consumption) {
-        boolean isUsable = this.mp >= consumption;
-        if (isUsable) {
-            this.mp -= consumption;
-            System.out.println("残りMP: " + this.mp);
-
-        } else {
-            System.out.println("mpが足りない");
-        }
-        return isUsable;
-
+    public void consumeMp(int amounts) {
+        System.out.println(getName() + "は" + amounts + "MPを消費した");
+        setMp(getMp() - amounts);
     }
 
     public void healMp(int amounts) {
-        setMp(getMp() + amounts);
         System.out.println(getName() + "は" + amounts + "MPを回復した");
+        setMp(getMp() + amounts);
     }
 
     public int getAgi() {
@@ -201,6 +231,126 @@ public abstract class FightingObject {
 
     public void setMnd(int mnd) {
         this.mnd = mnd;
+    }
+
+    public int getHitTimes() {
+        return hitTimes;
+    }
+
+    public void setHitTimes(int hitTimes) {
+        this.hitTimes = hitTimes;
+    }
+
+    public boolean isParalized() {
+        return isParalized;
+    }
+
+    public void setParalized(boolean isParalized) {
+        this.isParalized = isParalized;
+    }
+
+    public boolean isSleeping() {
+        return isSleeping;
+    }
+
+    public void setSleeping(boolean isSleeping) {
+        this.isSleeping = isSleeping;
+    }
+
+    public boolean isPoisoned() {
+        return isPoisoned;
+    }
+
+    public void setPoisoned(boolean isPoisoned) {
+        this.isPoisoned = isPoisoned;
+    }
+
+    public double getAttModifier() {
+        return attModifier;
+    }
+
+    public void setAttModifier(double attModifier) {
+        this.attModifier = attModifier;
+    }
+
+    public double getDefModifier() {
+        return defModifier;
+    }
+
+    public void setDefModifier(double defModifier) {
+        this.defModifier = defModifier;
+    }
+
+    public double getAgiModifier() {
+        return agiModifier;
+    }
+
+    public void setAgiModifier(double agiModifier) {
+        this.agiModifier = agiModifier;
+    }
+
+    public double getMndModifier() {
+        return mndModifier;
+    }
+
+    public void setMndModifier(double mndModifier) {
+        this.mndModifier = mndModifier;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    public boolean isStunned() {
+        return isStunned;
+    }
+
+    public void setStunned(boolean isStunned) {
+        this.isStunned = isStunned;
+    }
+
+    public int getParalysisCount() {
+        return paralysisCount;
+    }
+
+    public void setParalysisCount(int paralysisCount) {
+        this.paralysisCount = paralysisCount;
+    }
+
+    public int getSleepCount() {
+        return sleepCount;
+    }
+
+    public void setSleepCount(int sleepCount) {
+        this.sleepCount = sleepCount;
+    }
+
+    public int getPoisonCount() {
+        return poisonCount;
+    }
+
+    public void setPoisonCount(int poisonCount) {
+        this.poisonCount = poisonCount;
+    }
+
+    public int getStunCount() {
+        return stunCount;
+    }
+
+    public void setStunCount(int stunCount) {
+        this.stunCount = stunCount;
     }
 
 }

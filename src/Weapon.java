@@ -2,63 +2,68 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public abstract class Weapon implements ICalcDamageable, ISkillSelectable {
+public abstract class Weapon implements ICalcDamageable {
+    protected String name;
     protected int att;
     protected List<Skill> skills = new ArrayList<>();
     protected double rarityRate;
 
     @Override
-    public void calcDamage(FightingObject attacker, List<FightingObject> targets) {
-        Skill s;
-        do {
-            int option = skillSelect();
-            s = skills.get(option);
+    public boolean calcDamage(FightingObject attacker, List<FightingObject> targets, int skillOption) {
 
-        } while (!attacker.consumeMp(s.getMpConsumption()) || s == null);
-        // s.getMpConsumption() > attacker.getMp()
-
+        Skill s = skills.get(skillOption);
         System.out.println(attacker.getName() + "の" + s.getName());
+
+        // MPが十分にあるか確認
+        if (attacker.getMp() < s.getMpConsumption() || s == null)
+            return false;
 
         // 必殺技の場合
         if (s instanceof UltimateSkill) {
 
-            boolean isSuccess = ((UltimateSkill) s).ultimate(attacker, targets, this);
+            boolean isSuccess = ((UltimateSkill) s).ultimate(attacker, targets, this);// ultimateにmp消費が含まれる
 
-            // 使えなかった場合何もできない。上のwhile loopに入れる手もあるが調整が必要
-            return;
+            return isSuccess;
 
-        }
-        // 通常攻撃
-        // 全体攻撃の場合
-        if (s.isAOE()) {
-            for (FightingObject opponent : targets) {
+        } else {
+            // 通常攻撃
+            // 全体攻撃の場合
+            if (s.isAOE()) {
+                for (FightingObject opponent : targets) {
+                    for (int i = 0; i < s.getTimes(); i++) {
+                        int damage = (int) ((attacker.getAtt() + this.att - opponent.getDef())
+                                * ((double) s.getDamageCoefficient() / 100));
+                        damage = Math.max(1, damage);
+                        opponent.getDamage(damage);
+                        // displayAttack(opponent, damage);
+                    }
+                }
+
+            } else {
+                // targetを選ぶ
+                FightingObject opponent = targets.get(new Random().nextInt(targets.size()));
                 for (int i = 0; i < s.getTimes(); i++) {
                     int damage = (int) ((attacker.getAtt() + this.att - opponent.getDef())
                             * ((double) s.getDamageCoefficient() / 100));
-                    displayAttack(opponent, damage);
+                    damage = Math.max(1, damage);
+                    opponent.getDamage(damage);
+                    // displayAttack(opponent, damage);
                 }
             }
 
-        } else {
-            // targetを選ぶ
-            FightingObject opponent = targets.get(new Random().nextInt(targets.size()));
-            for (int i = 0; i < s.getTimes(); i++) {
-                int damage = (int) ((attacker.getAtt() + this.att - opponent.getDef())
-                        * ((double) s.getDamageCoefficient() / 100));
-                displayAttack(opponent, damage);
-            }
+            // mp消費
+            attacker.consumeMp(s.getMpConsumption());
+
+            return true;
+
         }
 
     }
 
     protected void displayAttack(FightingObject opponent, int damage) {
-        // 最低1ダメージ
-        damage = Math.max(1, damage);
         System.out.println(opponent.getName() + "に" + damage + "ダメージ!");
-        opponent.setHp(opponent.getHp() - damage);
     }
 
-    @Override
     public int skillSelect() {
 
         for (int i = 0; i < skills.size(); i++) {
@@ -72,7 +77,7 @@ public abstract class Weapon implements ICalcDamageable, ISkillSelectable {
             System.out.println(" " + num + " --> " + skill);
         }
 
-        int option = Main.scanNextInt(skills.size());
+        int option = Display.scanNextInt(skills.size());
         return option;
     }
 
@@ -98,6 +103,27 @@ public abstract class Weapon implements ICalcDamageable, ISkillSelectable {
 
     public void setRarityRate(double rarityRate) {
         this.rarityRate = rarityRate;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " ATT:+" + this.att;
+    }
+
+    public String toDetailString() {
+        String s = "";
+        for (Skill skill : skills) {
+            s += skill.getName() + " ";
+        }
+        return this.name + " ATT:" + this.att + " スキル: " + s;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

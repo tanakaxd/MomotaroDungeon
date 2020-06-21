@@ -12,6 +12,7 @@ public abstract class Hero extends FightingObject {
         super();
         this.isEnemy = false;
         this.accumulatedExp = 0;
+        this.action = new HeroAction();
     }
 
     public int calcLevel(int exp) {
@@ -33,8 +34,8 @@ public abstract class Hero extends FightingObject {
     }
 
     public void rest() {
-        healHp(20);
-        healMp(5);
+        healHp((int) (this.maxHp * 0.2));
+        healMp((int) (this.maxMp * 0.2));
     }
 
     public Weapon getWeapon() {
@@ -43,5 +44,11 @@ public abstract class Hero extends FightingObject {
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+
+    @Override
+    public String toString() {
+        return name + "[装備:" + this.weapon + "]" + " HP:" + this.hp + "/" + this.maxHp + " MP:" + this.mp + "/"
+                + this.maxMp;
     }
 }
