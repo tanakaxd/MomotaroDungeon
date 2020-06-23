@@ -13,10 +13,10 @@ public class Kappa extends Monster {
         this.mp = maxMp;
         this.agi = 10;
         this.att = 10;
-        this.def = 10;
+        this.def = 5;
         this.mnd = 12;
         this.isEnemy = true;
-        this.hitTimes = 2;
+        this.hitTimes = 1;
 
     }
 }

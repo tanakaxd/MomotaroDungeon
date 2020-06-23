@@ -28,7 +28,6 @@ public class Battle {
         }
         for (int i = 0; i < BattleDatabase.getEnemyAmountsForStairs(stairs); i++) {
             enemies.add(MonsterDatabase.getInstance().getRandomMonster());
-
         }
         objectsOnField.addAll(friends);
         objectsOnField.addAll(enemies);

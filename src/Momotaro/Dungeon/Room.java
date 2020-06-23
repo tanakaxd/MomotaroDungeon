@@ -77,7 +77,7 @@ public class Room {
     }
 
     private void initiateAddFriend(Party p, int stairs) {
-        Display.delayedPrint("\nボスに捕縛されていたやつがいる");
+        Display.delayedPrint("\nボスに捕縛されていたやつが仲間にしてくれと言っている");
         Display.delayedPrint("仲間にしますか？");
         Display.displayChoices("はい", "いいえ");
         int option = Display.scanNextInt(2);

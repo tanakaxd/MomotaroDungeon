@@ -21,7 +21,7 @@ public class Ochimusha extends Monster {
         this.mp = maxMp;
         this.agi = 1;
         this.att = 20;
-        this.def = 10;
+        this.def = 15;
         this.mnd = 2;
         this.isEnemy = true;
         this.hitTimes = 1;

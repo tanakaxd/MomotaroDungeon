@@ -26,6 +26,7 @@ public class Floor {
         if (num % 5 == 0) {
             bossFightsCounts++;
             rooms.add(new Room(RoomType.BOSS));
+            rooms.add(new Room(RoomType.ADDFRIEND));
         }
         rooms.add(new Room(RoomType.UPSTAIR));
     }

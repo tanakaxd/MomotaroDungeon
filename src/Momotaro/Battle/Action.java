@@ -8,7 +8,6 @@ public abstract class Action {
 
     // hero にも monsterにも共通する処理
     // 攻撃処理
-
     public abstract void attemptAct(FightingObject self, List<FightingObject> enemies, List<FightingObject> friends);
 
     // template pattern

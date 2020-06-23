@@ -27,7 +27,7 @@ public final class MonsterDatabase {
 
     public Monster getRandomMonster() {
 
-        int random = new Random().nextInt(4);
+        int random = new Random().nextInt(5);
         switch (random) {
             case 0:
                 return new Oni();

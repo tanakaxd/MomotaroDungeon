@@ -26,7 +26,7 @@ public class Momotaro extends Hero {
 		this.mnd = 8;
 		this.hitTimes = 1;
 		this.isEnemy = false;
-		this.weapon = new Hammer();
+		this.weapon = new Sude();
 
 	}
 
