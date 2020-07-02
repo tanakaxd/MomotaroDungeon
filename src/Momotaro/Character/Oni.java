@@ -1,15 +1,5 @@
 package Momotaro.Character;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
-import java.util.List;
-import java.util.Random;
-
 public class Oni extends Monster {
 
 	public Oni() {
@@ -24,7 +14,6 @@ public class Oni extends Monster {
 		this.agi = 3;
 		this.att = 20;
 		this.def = 2;
-		this.mnd = 1;
 		this.isEnemy = true;
 		this.hitTimes = 1;
 	}

@@ -1,13 +1,5 @@
 package Momotaro.Output;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
-
 public class MomotaroDeadException extends RuntimeException {
 
     /**

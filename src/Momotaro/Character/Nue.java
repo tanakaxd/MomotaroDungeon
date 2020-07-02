@@ -1,13 +1,5 @@
 package Momotaro.Character;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
-
 public class Nue extends Monster {
 
     public Nue() {
@@ -22,7 +14,6 @@ public class Nue extends Monster {
         this.agi = 12;
         this.att = 15;
         this.def = 8;
-        this.mnd = 10;
         this.isEnemy = true;
         this.hitTimes = 2;
 

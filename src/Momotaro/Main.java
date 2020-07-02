@@ -1,6 +1,5 @@
 package Momotaro;
 
-import Momotaro.Character.Kintaro;
 import Momotaro.Character.Momotaro;
 import Momotaro.Dungeon.Floor;
 import Momotaro.Output.Display;

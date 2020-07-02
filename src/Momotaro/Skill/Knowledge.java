@@ -1,14 +1,9 @@
 package Momotaro.Skill;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
 import java.util.List;
-import java.util.Random;
+
+import Momotaro.Character.FightingObject;
+import Momotaro.Item.Weapon;
 
 public class Knowledge extends UltimateSkill {
 
@@ -21,7 +16,7 @@ public class Knowledge extends UltimateSkill {
     public boolean doUltimate(FightingObject attacker, List<FightingObject> enemies, List<FightingObject> friends,
             Weapon weapon) {
 
-        int heal = (int) ((attacker.getMnd() + weapon.getAtt()) * ((double) getDamageCoefficient() / 100));
+        int heal = (int) ((attacker.getAtt() + weapon.getAtt()) * ((double) getDamageCoefficient() / 100));
         for (FightingObject f : friends) {
             f.healHp(heal);
         }

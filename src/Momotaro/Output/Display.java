@@ -1,12 +1,5 @@
 package Momotaro.Output;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
 import java.util.Scanner;
 
 public class Display {
@@ -15,7 +8,7 @@ public class Display {
     public static boolean isDelayed = true;
 
     // 引数は選択肢の数。範囲外の場合もう一度入力を求める
-    public static int scanNextInt(int amounts) {
+    public static int scanNextInt(int amounts, boolean deniable) {
         int option;
         boolean ok = false;
         do {
@@ -24,17 +17,30 @@ public class Display {
 
                 ok = true;
             } else {
+                if (deniable && option == 0)
+                    return -1;
                 System.out.println("***無効な入力です。もう一回やってみて***");
             }
         } while (!ok);
+
         return option - 1;
     }
 
-    public static void displayChoices(String... lines) {// 可変長引数
+    public static int scanNextInt(int amounts) {
+        return scanNextInt(amounts, false);
+    }
+
+    public static void displayChoices(boolean deniable, String... lines) {// 可変長引数
+        if (deniable)
+            System.out.println(" 0 --> キャンセル");
         for (int i = 0; i < lines.length; i++) {
             int num = i + 1;
             System.out.println(" " + num + " --> " + lines[i]);
         }
+    }
+
+    public static void displayChoices(String... lines) {// 可変長引数
+        displayChoices(false, lines);
     }
 
     public static void delayedPrint(String... lines) {

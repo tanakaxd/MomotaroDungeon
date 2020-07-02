@@ -1,13 +1,5 @@
 package Momotaro.Character;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
-
 public class Ochimusha extends Monster {
 
     public Ochimusha() {
@@ -22,7 +14,6 @@ public class Ochimusha extends Monster {
         this.agi = 1;
         this.att = 20;
         this.def = 15;
-        this.mnd = 2;
         this.isEnemy = true;
         this.hitTimes = 1;
 

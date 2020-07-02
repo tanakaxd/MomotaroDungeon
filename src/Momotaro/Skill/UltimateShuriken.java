@@ -1,14 +1,10 @@
 package Momotaro.Skill;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
 import java.util.List;
-import java.util.Random;
+
+import Momotaro.Battle.BattleCalc;
+import Momotaro.Character.FightingObject;
+import Momotaro.Item.Weapon;
 
 public class UltimateShuriken extends UltimateSkill {
 
@@ -23,8 +19,8 @@ public class UltimateShuriken extends UltimateSkill {
 
         for (FightingObject opponent : enemies) {
             for (int i = 0; i < getTimes(); i++) {
-                int damage = (int) ((attacker.getAtt() + weapon.getAtt() - opponent.getDef())
-                        * ((double) getDamageCoefficient() / 100));
+                int damage = BattleCalc.calc(attacker, opponent);
+                damage = (int) (damage * (double) this.getDamageCoefficient() / 100);
                 damage = Math.max(1, damage);
                 opponent.getDamage(damage);
             }

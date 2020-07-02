@@ -1,14 +1,10 @@
 package Momotaro.Skill;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
 import java.util.List;
 import java.util.Random;
+
+import Momotaro.Character.FightingObject;
+import Momotaro.Item.Weapon;
 
 public class Busou extends UltimateSkill {
 
@@ -22,7 +18,7 @@ public class Busou extends UltimateSkill {
             Weapon weapon) {
 
         FightingObject opponent = enemies.get(new Random().nextInt(enemies.size()));
-        int damage = (int) ((attacker.getAtt() + weapon.getAtt()) * ((double) getDamageCoefficient() / 100));
+        int damage = (int) (attacker.getModifiedAtt() * (double) getDamageCoefficient() / 100);
         damage = Math.max(1, damage);
         opponent.getDamage(damage);
         return true;

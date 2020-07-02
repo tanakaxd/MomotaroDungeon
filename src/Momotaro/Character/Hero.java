@@ -1,13 +1,12 @@
 package Momotaro.Character;
 
-import Momotaro.Battle.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import Momotaro.Battle.HeroAction;
+import Momotaro.Item.Weapon;
+import Momotaro.Skill.Skill;
+import Momotaro.Skill.UltimateSkill;
 
 public abstract class Hero extends FightingObject {
     // 経験値を蓄積しレベルアップできる
@@ -52,6 +51,13 @@ public abstract class Hero extends FightingObject {
         String s = super.toDetailString();
         s += getWeapon().toDetailString();
         return s;
+    }
+
+    @Override
+    public int getModifiedAtt() {
+        // int modifier = 1;
+        double att = (this.att + this.weapon.getAtt()) * this.attModifier;
+        return (int) att;
     }
 
     public Weapon getWeapon() {

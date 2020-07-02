@@ -1,16 +1,5 @@
 package Momotaro.Battle;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public final class BattleDatabase {
     private static BattleDatabase theInstance;
 

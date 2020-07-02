@@ -13,7 +13,6 @@ public class Shura extends Boss {
         this.agi = 30;
         this.att = 13;
         this.def = 5;
-        this.mnd = 2;
         this.isEnemy = true;
         this.hitTimes = 10;
 

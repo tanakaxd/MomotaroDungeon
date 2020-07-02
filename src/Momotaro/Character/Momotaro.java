@@ -1,14 +1,6 @@
 package Momotaro.Character;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
-import java.util.List;
-import java.util.stream.Collectors;
+import Momotaro.Item.Sude;
 
 public class Momotaro extends Hero {
 
@@ -23,7 +15,6 @@ public class Momotaro extends Hero {
 		this.agi = 10;
 		this.att = 20;
 		this.def = 10;
-		this.mnd = 8;
 		this.hitTimes = 1;
 		this.isEnemy = false;
 		this.weapon = new Sude();

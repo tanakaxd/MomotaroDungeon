@@ -1,13 +1,6 @@
 package Momotaro.Character;
 
-import Momotaro.Battle.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
-import java.util.List;
-import java.util.Random;
+import Momotaro.Battle.MonsterAction;
 
 public abstract class Monster extends FightingObject {
 

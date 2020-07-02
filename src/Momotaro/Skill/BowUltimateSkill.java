@@ -3,6 +3,7 @@ package Momotaro.Skill;
 import java.util.List;
 import java.util.Random;
 
+import Momotaro.Battle.BattleCalc;
 import Momotaro.Character.FightingObject;
 import Momotaro.Item.Weapon;
 
@@ -17,8 +18,8 @@ public class BowUltimateSkill extends UltimateSkill {
     protected boolean doUltimate(FightingObject attacker, List<FightingObject> enemies, List<FightingObject> friends,
             Weapon weapon) {
         FightingObject opponent = enemies.get(new Random().nextInt(enemies.size()));
-        int damage = (int) ((attacker.getAtt() + weapon.getAtt() - opponent.getDef())
-                * ((double) getDamageCoefficient() / 100));
+        int damage = BattleCalc.calc(attacker, opponent);
+        damage = (int) (damage * (double) this.getDamageCoefficient() / 100);
         damage = Math.max(1, damage);
         for (int i = 0; i < this.getTimes(); i++) {
             opponent.getDamage(damage);

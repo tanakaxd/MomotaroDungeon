@@ -17,8 +17,7 @@ public class HammerUltimateSkill extends UltimateSkill {
     protected boolean doUltimate(FightingObject attacker, List<FightingObject> enemies, List<FightingObject> friends,
             Weapon weapon) {
         FightingObject opponent = enemies.get(new Random().nextInt(enemies.size()));
-        int damage = (int) ((attacker.getAtt() + weapon.getAtt() + opponent.getDef())
-                * ((double) getDamageCoefficient() / 100));
+        int damage = (int) ((attacker.getModifiedAtt() + opponent.getDef()) * ((double) getDamageCoefficient() / 100));
         damage = Math.max(1, damage);
         opponent.getDamage(damage);
         return true;

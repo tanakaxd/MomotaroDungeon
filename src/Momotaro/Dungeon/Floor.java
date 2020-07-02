@@ -1,14 +1,10 @@
 package Momotaro.Dungeon;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import Momotaro.Output.Display;
+import Momotaro.Party.Party;
 
 public class Floor {
 

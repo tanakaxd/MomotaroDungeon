@@ -1,13 +1,10 @@
 package Momotaro.Character;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
 import java.util.List;
+
+import Momotaro.Battle.Action;
+import Momotaro.Output.Display;
+import Momotaro.Party.Party;
 
 public abstract class FightingObject {
     protected String name;
@@ -18,8 +15,9 @@ public abstract class FightingObject {
     protected int mp;
     protected int att;
     protected int def;
-    protected int agi;
-    protected int mnd;
+    protected int sta; // mp,fatigue
+    protected int dex;// 命中
+    protected int agi;// 素早さ、回避率
     protected int hitTimes;
 
     protected boolean isDead;
@@ -39,7 +37,6 @@ public abstract class FightingObject {
     protected double attModifier;
     protected double defModifier;
     protected double agiModifier;
-    protected double mndModifier;
     // レベル
     protected int level;
     protected int xp;
@@ -58,7 +55,6 @@ public abstract class FightingObject {
         this.attModifier = 1;
         this.defModifier = 1;
         this.agiModifier = 1;
-        this.mndModifier = 1;
     }
 
     public class Timer {
@@ -70,7 +66,7 @@ public abstract class FightingObject {
 
     }
 
-    public final void attemptAct(List<FightingObject> enemies, List<FightingObject> friends) {
+    public final void attemptAct(List<FightingObject> enemies, List<FightingObject> friends, Party p) {
         // 行動前、誰もが行う処理
         if (isDead || !isActive || isParalized() || isSleeping() || enemies.size() == 0)
             return;
@@ -82,7 +78,7 @@ public abstract class FightingObject {
         beginTurn();
 
         // クラスごとに独自の行動メソッド
-        this.action.attemptAct(this, enemies, friends);
+        this.action.attemptAct(this, enemies, friends, p);
 
         // 行動後、誰もが行う処理
         setActive(false);
@@ -103,8 +99,14 @@ public abstract class FightingObject {
     public String toDetailString() {
         String s = "";
         s += toString() + "\n";
-        s += "ATT:" + this.att + " DEF:" + this.def + " AGI:" + this.agi + " MND:" + this.mnd + "\n";
+        s += "ATT:" + this.att + " DEF:" + this.def + " AGI:" + this.agi + " DEX:" + this.dex + "\n";
         return s;
+    }
+
+    public int getModifiedAtt() {
+        // int modifier = 1;
+        double att = this.att * this.attModifier;
+        return (int) att;
     }
 
     public int getHp() {
@@ -243,14 +245,6 @@ public abstract class FightingObject {
         this.def = def;
     }
 
-    public int getMnd() {
-        return mnd;
-    }
-
-    public void setMnd(int mnd) {
-        this.mnd = mnd;
-    }
-
     public int getHitTimes() {
         return hitTimes;
     }
@@ -305,14 +299,6 @@ public abstract class FightingObject {
 
     public void setAgiModifier(double agiModifier) {
         this.agiModifier = agiModifier;
-    }
-
-    public double getMndModifier() {
-        return mndModifier;
-    }
-
-    public void setMndModifier(double mndModifier) {
-        this.mndModifier = mndModifier;
     }
 
     public int getLevel() {

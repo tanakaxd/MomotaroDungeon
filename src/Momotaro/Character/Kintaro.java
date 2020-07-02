@@ -1,14 +1,6 @@
 package Momotaro.Character;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
-import java.util.List;
-import java.util.stream.Collectors;
+import Momotaro.Item.OldBook;
 
 public class Kintaro extends Hero {
     private static int count = 1;
@@ -24,7 +16,6 @@ public class Kintaro extends Hero {
         this.agi = 7;
         this.att = 10;
         this.def = 11;
-        this.mnd = 15;
         this.hitTimes = 2;
         this.isEnemy = false;
         this.weapon = new OldBook();

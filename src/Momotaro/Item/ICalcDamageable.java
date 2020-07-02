@@ -1,13 +1,8 @@
 package Momotaro.Item;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
 import java.util.List;
+
+import Momotaro.Character.FightingObject;
 
 public interface ICalcDamageable {
 

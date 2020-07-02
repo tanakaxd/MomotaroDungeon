@@ -1,13 +1,5 @@
 package Momotaro.Skill;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
-
 public class Skill {
     // 対象が誰か
     // 全体か
@@ -17,9 +9,11 @@ public class Skill {
     private String name;
     private boolean isAOE;
     private boolean isUsable;
-    private int damageCoefficient;
     private int times;
+    private int damageCoefficient;
     private int mpConsumption;
+    // private int critRate;
+    // private int hitRate;
     private String description;
 
     public Skill(String name, boolean isAOE, int times, int damageCoefficient, int mpConsumption, String description) {
@@ -84,6 +78,22 @@ public class Skill {
 
     public void setTimes(int times) {
         this.times = times;
+    }
+
+    public boolean isUsable() {
+        return isUsable;
+    }
+
+    public void setUsable(boolean isUsable) {
+        this.isUsable = isUsable;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

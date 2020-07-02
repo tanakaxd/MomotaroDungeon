@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import Momotaro.Battle.BattleCalc;
 import Momotaro.Character.FightingObject;
 import Momotaro.Output.Display;
 import Momotaro.Skill.Skill;
 import Momotaro.Skill.UltimateSkill;
 
-public abstract class Weapon implements ICalcDamageable {
-    protected String name;
+public abstract class Weapon extends Item implements ICalcDamageable {
     protected int att;
     protected List<Skill> skills = new ArrayList<>();
-    protected double rarityRate;
 
     // protected double precisionRate;
     // protected double fatigueModifier;
+
+    public void equip() {
+
+    }
 
     @Override
     public boolean calcDamage(FightingObject attacker, List<FightingObject> enemies, List<FightingObject> friends,
@@ -42,8 +45,7 @@ public abstract class Weapon implements ICalcDamageable {
             if (s.isAOE()) {
                 for (FightingObject opponent : enemies) {
                     for (int i = 0; i < s.getTimes(); i++) {
-                        int damage = (int) ((attacker.getAtt() + this.att - opponent.getDef())
-                                * ((double) s.getDamageCoefficient() / 100));
+                        int damage = BattleCalc.calc(attacker, opponent, s);
                         damage = Math.max(1, damage);
                         opponent.getDamage(damage);
                         // displayAttack(opponent, damage);
@@ -54,8 +56,7 @@ public abstract class Weapon implements ICalcDamageable {
                 // targetを選ぶ
                 FightingObject opponent = enemies.get(new Random().nextInt(enemies.size()));
                 for (int i = 0; i < s.getTimes(); i++) {
-                    int damage = (int) ((attacker.getAtt() + this.att - opponent.getDef())
-                            * ((double) s.getDamageCoefficient() / 100));
+                    int damage = BattleCalc.calc(attacker, opponent, s);
                     damage = Math.max(1, damage);
                     opponent.getDamage(damage);
                     // displayAttack(opponent, damage);
@@ -88,7 +89,7 @@ public abstract class Weapon implements ICalcDamageable {
             System.out.println(" " + num + " --> " + skill);
         }
 
-        int option = Display.scanNextInt(skills.size());
+        int option = Display.scanNextInt(skills.size(), false);
         return option;
     }
 
@@ -108,14 +109,6 @@ public abstract class Weapon implements ICalcDamageable {
         this.skills = skills;
     }
 
-    public double getRarityRate() {
-        return rarityRate;
-    }
-
-    public void setRarityRate(double rarityRate) {
-        this.rarityRate = rarityRate;
-    }
-
     @Override
     public String toString() {
         return "『" + this.name + "』" + " ATT:+" + this.att;
@@ -127,14 +120,6 @@ public abstract class Weapon implements ICalcDamageable {
             s += skill.getName() + " ";
         }
         return "『" + this.name + "』" + " ATT:+" + this.att + " スキル: " + s;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 }

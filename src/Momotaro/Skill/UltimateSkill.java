@@ -1,12 +1,9 @@
 package Momotaro.Skill;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
 import java.util.List;
+
+import Momotaro.Character.FightingObject;
+import Momotaro.Item.Weapon;
 
 public abstract class UltimateSkill extends Skill {
 

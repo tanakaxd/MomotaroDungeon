@@ -1,12 +1,6 @@
 package Momotaro.Item;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -41,9 +35,19 @@ public final class WeaponManager {
             int index = new Random().nextInt(manager.weapons.size());
             Weapon weapon = manager.weapons.get(index);
             if (Math.random() < weapon.getRarityRate() || count > 1000)
-                return weapon;
+                try {
+                    return weapon.getClass().getDeclaredConstructor().newInstance();
+                } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                        | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+                    e.printStackTrace();
+                }
+
             count++;
         }
 
+    }
+
+    public static List<Weapon> getWeapons() {
+        return getInstance().weapons;
     }
 }

@@ -1,24 +1,21 @@
 package Momotaro.Party;
 
-import Momotaro.Battle.*;
-import Momotaro.Character.*;
-import Momotaro.Dungeon.*;
-import Momotaro.Item.*;
-import Momotaro.Output.*;
-import Momotaro.Party.*;
-import Momotaro.Skill.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import Momotaro.Character.Hero;
 
 public class Party {
     private List<Hero> heroes = new ArrayList<Hero>();
     private Hero mainHero;
+    private Inventory inventory;
 
     public Party(Hero... heroes) {
         this.mainHero = heroes[0];
         for (Hero hero : heroes) {
             addHero(hero);
         }
+        this.inventory = new Inventory();
     }
 
     public void rest() {
@@ -51,6 +48,14 @@ public class Party {
 
     public void setMainHero(Hero mainHero) {
         this.mainHero = mainHero;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 
 }
