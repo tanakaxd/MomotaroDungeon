@@ -12,7 +12,7 @@ public class Oni extends Monster {
 		this.maxMp = 0;
 		this.mp = maxMp;
 		this.agi = 3;
-		this.att = 20;
+		this.att = 12;
 		this.def = 2;
 		this.isEnemy = true;
 		this.hitTimes = 1;

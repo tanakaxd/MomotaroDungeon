@@ -7,15 +7,15 @@ public class Nue extends Monster {
 
         this.setName("鵺" + count);
         this.id = count;
-        this.maxHp = 30;
+        this.maxHp = 50;
         this.hp = maxHp;
         this.maxMp = 30;
         this.mp = maxMp;
         this.agi = 12;
-        this.att = 15;
-        this.def = 8;
+        this.att = 10;
+        this.def = 10;
         this.isEnemy = true;
-        this.hitTimes = 2;
+        this.hitTimes = 1;
 
     }
 }

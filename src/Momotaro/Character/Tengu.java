@@ -12,10 +12,10 @@ public class Tengu extends Monster {
         this.maxMp = 30;
         this.mp = maxMp;
         this.agi = 20;
-        this.att = 7;
+        this.att = 4;
         this.def = 0;
         this.isEnemy = true;
-        this.hitTimes = 5;
+        this.hitTimes = 3;
 
     }
 }

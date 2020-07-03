@@ -13,8 +13,8 @@ public class Momotaro extends Hero {
 		this.maxMp = 30;
 		this.mp = maxMp;
 		this.agi = 10;
-		this.att = 20;
-		this.def = 10;
+		this.att = 12;
+		this.def = 12;
 		this.hitTimes = 1;
 		this.isEnemy = false;
 		this.weapon = new Sude();

@@ -11,10 +11,10 @@ public class Shura extends Boss {
         this.maxMp = 30;
         this.mp = maxMp;
         this.agi = 30;
-        this.att = 13;
+        this.att = 10;
         this.def = 5;
         this.isEnemy = true;
-        this.hitTimes = 10;
+        this.hitTimes = 3;
 
     }
 }

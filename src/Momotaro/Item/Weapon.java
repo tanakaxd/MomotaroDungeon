@@ -40,7 +40,7 @@ public abstract class Weapon extends Item implements ICalcDamageable {
             return isSuccess;
 
         } else {
-            // 通常攻撃
+            // 通常スキル
             // 全体攻撃の場合
             if (s.isAOE()) {
                 for (FightingObject opponent : enemies) {
@@ -72,9 +72,9 @@ public abstract class Weapon extends Item implements ICalcDamageable {
 
     }
 
-    protected void displayAttack(FightingObject opponent, int damage) {
-        System.out.println(opponent.getName() + "に" + damage + "ダメージ!");
-    }
+    // protected void displayAttack(FightingObject opponent, int damage) {
+    // System.out.println(opponent.getName() + "に" + damage + "ダメージ!");
+    // }
 
     public int skillSelect() {
 

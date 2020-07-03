@@ -7,7 +7,7 @@ public class Sword extends Weapon {
 
     public Sword() {
         this.name = "刀";
-        this.att = 8;
+        this.att = 4;
         this.rarityRate = 0.3;
         this.skills.add(new Skill("虎狩", false, 1, 70, 3, "通常攻撃"));
         this.skills.add(new Skill("鬼斬り", false, 1, 90, 5, "単体中威力攻撃"));

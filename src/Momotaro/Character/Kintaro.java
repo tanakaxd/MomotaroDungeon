@@ -15,8 +15,8 @@ public class Kintaro extends Hero {
         this.mp = maxMp;
         this.agi = 7;
         this.att = 10;
-        this.def = 11;
-        this.hitTimes = 2;
+        this.def = 10;
+        this.hitTimes = 1;
         this.isEnemy = false;
         this.weapon = new OldBook();
         count++;

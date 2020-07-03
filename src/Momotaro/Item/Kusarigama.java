@@ -6,7 +6,7 @@ public class Kusarigama extends Weapon {
 
     public Kusarigama() {
         this.name = "鎖鎌";
-        this.att = 4;
+        this.att = 2;
         this.rarityRate = 0.3;
         this.skills.add(new Skill("連鎖", true, 3, 20, 5, ""));
         this.skills.add(new Skill("ダブル連鎖", true, 2, 40, 7, ""));

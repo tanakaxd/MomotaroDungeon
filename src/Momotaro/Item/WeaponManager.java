@@ -18,6 +18,7 @@ public final class WeaponManager {
         weapons.add(new Shuriken());
         weapons.add(new Kusarigama());
         weapons.add(new Pistol());
+        weapons.add(new Bow());
     }
 
     public static WeaponManager getInstance() {

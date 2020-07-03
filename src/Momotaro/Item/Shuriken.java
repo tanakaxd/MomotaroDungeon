@@ -6,7 +6,7 @@ import Momotaro.Skill.UltimateShuriken;
 public class Shuriken extends Weapon {
     public Shuriken() {
         this.name = "手裏剣";
-        this.att = 2;
+        this.att = 1;
         this.rarityRate = 0.2;
 
         this.skills.add(new Skill("投げる", false, 5, 10, 1, ""));

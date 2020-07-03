@@ -8,7 +8,8 @@ public class BattleCalc {
 
         int attack = attacker.getModifiedAtt() * 4;
 
-        int damage = attack - defender.getDef();
+        int autoAttackModifier = 2;// スキル換算で威力50
+        int damage = (attack - defender.getDef()) / autoAttackModifier;
         return damage;
     }
 

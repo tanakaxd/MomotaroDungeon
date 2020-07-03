@@ -5,7 +5,7 @@ import Momotaro.Skill.*;
 public class Hammer extends Weapon {
     public Hammer() {
         this.name = "大槌";
-        this.att = 10;
+        this.att = 5;
         this.rarityRate = 0.1;
 
         this.skills.add(new Skill("微スウィング", false, 1, 120, 4, ""));
